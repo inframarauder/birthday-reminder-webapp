@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Cross, Hamburger } from "./Icons";
 
 const Header = () => {
+	const { data, status } = useSession();
+
+	console.log(data);
+
 	const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
 	const toggleMenu = () => {
@@ -38,12 +42,14 @@ const Header = () => {
 						</div>
 					</div>
 					{/* right part */}
-					<div className="hidden md:flex items-center space-x-1">
+					<div className="hidden md:flex items-center justify-between space-x-1">
 						<button
-							onClick={() => signIn()}
+							onClick={() =>
+								status === "authenticated" ? signOut() : signIn()
+							}
 							className="py-2 px-3 bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  transition duration-300 cursor-pointer"
 						>
-							Sign In
+							{status === "authenticated" ? "Sign Out" : "Sign In"}
 						</button>
 					</div>
 
@@ -83,10 +89,10 @@ const Header = () => {
 				{/**options */}
 				<div className="flex flex-col">
 					<button
-						onClick={() => signIn()}
+						onClick={() => (status === "authenticated" ? signOut() : signIn())}
 						className="py-2 px-3 bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  transition duration-300 cursor-pointer"
 					>
-						Sign In
+						{status === "authenticated" ? "Sign Out" : "Sign In"}
 					</button>
 				</div>
 			</div>
