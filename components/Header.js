@@ -6,8 +6,6 @@ import { Cross, Hamburger } from "./Icons";
 const Header = () => {
 	const { data, status } = useSession();
 
-	console.log(data);
-
 	const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
 	const toggleMenu = () => {
@@ -43,6 +41,18 @@ const Header = () => {
 					</div>
 					{/* right part */}
 					<div className="hidden md:flex items-center justify-between space-x-1">
+						{data && (
+							<div className="flex justify-between items-center mx-4">
+								<img
+									src={`${data.user.image}`}
+									width={40}
+									height={40}
+									className="mx-4 border-4"
+								/>
+								<span>{data.user.name}</span>
+							</div>
+						)}
+
 						<button
 							onClick={() =>
 								status === "authenticated"
@@ -90,6 +100,17 @@ const Header = () => {
 				</Link>
 				{/**options */}
 				<div className="flex flex-col">
+					{data && (
+						<div className="flex items-center">
+							<img
+								src={`${data.user.image}`}
+								width={40}
+								height={40}
+								className="mx-2 my-4 border-4"
+							/>
+							<span>{data.user.name}</span>
+						</div>
+					)}
 					<button
 						onClick={() =>
 							status === "authenticated"
