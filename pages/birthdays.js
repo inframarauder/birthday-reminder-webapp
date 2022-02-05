@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import RecordCard from "../components/RecordCard";
+import SearchBar from "../components/SearchBar";
 
 const data = [
 	{
@@ -38,9 +39,10 @@ const data = [
 const Birthdays = () => {
 	return (
 		<Layout>
-			<div className="h-screen container my-20 px-5">
+			<div className="h-screen container my-20 px-2">
+				<SearchBar />
 				<h1 className="text-center text-lg font-bold text-gray-400">
-					{data.length} birthdays recorded
+					{data.length} birthdays found...
 				</h1>
 				<div className="my-4">
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
