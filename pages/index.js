@@ -7,10 +7,10 @@ const Home = () => {
 	return (
 		<Layout>
 			<div className="container h-screen">
-				<div className="flex flex-col items-center justify-center my-10 mx-auto py-4 px-4">
+				<div className="flex flex-col items-center justify-center my-20 mx-auto py-4 px-4">
 					<Image src="/cake.png" alt="logo" width={300} height={300} />
 				</div>
-				<div className="flex flex-col items-center my-10 mx-auto py-4 px-4">
+				<div className="flex flex-col items-center mx-auto px-4">
 					<p className="text-lg text-center">
 						This application lets you record your friends' birthdays and sends
 						you email reminders on their birthdays!
