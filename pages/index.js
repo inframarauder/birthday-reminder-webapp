@@ -8,12 +8,13 @@ const Home = () => {
 		<Layout>
 			<div className="container h-screen">
 				<div className="flex flex-col items-center justify-center my-10 mx-auto py-4 px-4">
-					<Image src="/cake.png" alt="logo" width={400} height={400} />
+					<Image src="/cake.png" alt="logo" width={300} height={300} />
 				</div>
 				<div className="flex flex-col items-center my-10 mx-auto py-4 px-4">
 					<p className="text-lg text-center">
 						This application lets you record your friends' birthdays and sends
 						you email reminders on their birthdays!
+						<br /> Build using Next.js, AWS Lambda and Amazon Cognito.
 					</p>
 					<p className="my-4 text-lg">
 						<Link href="/login">

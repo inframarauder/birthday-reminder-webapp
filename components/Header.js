@@ -61,7 +61,7 @@ const Header = () => {
 
 			{/* mobile nav sidebar */}
 			<div
-				className={`bg-gray-100 shadow-sm px-2 w-64 h-full fixed top-0 left-0 z-40  ${
+				className={`bg-gray-100 shadow-sm px-2 w-64 h-full fixed top-0 left-0 opacity-100 z-10 ${
 					mobileNavOpen ? "translate-x-0" : "-translate-x-full"
 				} transition duration-200 ease-in-out`}
 			>
