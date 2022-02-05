@@ -45,7 +45,9 @@ const Header = () => {
 					<div className="hidden md:flex items-center justify-between space-x-1">
 						<button
 							onClick={() =>
-								status === "authenticated" ? signOut() : signIn()
+								status === "authenticated"
+									? signOut({ callbackUrl: `${window.location.origin}` })
+									: signIn()
 							}
 							className="py-2 px-3 bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  transition duration-300 cursor-pointer"
 						>
@@ -89,7 +91,11 @@ const Header = () => {
 				{/**options */}
 				<div className="flex flex-col">
 					<button
-						onClick={() => (status === "authenticated" ? signOut() : signIn())}
+						onClick={() =>
+							status === "authenticated"
+								? signOut({ callbackUrl: `${window.location.origin}` })
+								: signIn()
+						}
 						className="py-2 px-3 bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  transition duration-300 cursor-pointer"
 					>
 						{status === "authenticated" ? "Sign Out" : "Sign In"}
