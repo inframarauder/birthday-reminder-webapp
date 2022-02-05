@@ -1,12 +1,11 @@
 import NextAuth from "next-auth/next";
-import CognitoProvider from "next-auth/providers/cognito";
+import GoogleProvider from "next-auth/providers/google";
 
 export default NextAuth({
 	providers: [
-		CognitoProvider({
-			clientId: process.env.COGNITO_APP_CLIENT_ID,
-			clientSecret: process.env.COGNITO_APP_CLIENT_SECRET,
-			issuer: process.env.COGNITO_ISSUER,
+		GoogleProvider({
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 		}),
 	],
 });
