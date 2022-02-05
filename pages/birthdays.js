@@ -39,12 +39,12 @@ const data = [
 const Birthdays = () => {
 	return (
 		<Layout>
-			<div className="h-screen container my-20 px-2">
+			<div className="min-h-screen container my-20 px-2">
 				<SearchBar />
 				<h1 className="text-center text-lg font-bold text-gray-400">
 					{data.length} birthdays found...
 				</h1>
-				<div className="my-4">
+				<div className="my-4 px-4">
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 						{data.map((item, index) => (
 							<RecordCard key={index} item={item} />
