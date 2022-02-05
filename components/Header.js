@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 import { Cross, Hamburger } from "./Icons";
 
 const Header = () => {
@@ -38,16 +39,12 @@ const Header = () => {
 					</div>
 					{/* right part */}
 					<div className="hidden md:flex items-center space-x-1">
-						<Link href="/login">
-							<span className="py-5 px-3 cursor-pointer hover:underline">
-								Login
-							</span>
-						</Link>
-						<Link href="/signup">
-							<span className="py-2 px-3 bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  transition duration-300 cursor-pointer">
-								Signup
-							</span>
-						</Link>
+						<button
+							onClick={() => signIn()}
+							className="py-2 px-3 bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  transition duration-300 cursor-pointer"
+						>
+							Sign In
+						</button>
 					</div>
 
 					{/* mobile view menu button  */}
@@ -85,16 +82,12 @@ const Header = () => {
 				</Link>
 				{/**options */}
 				<div className="flex flex-col">
-					<Link href="/login">
-						<span className="py-5 px-3 cursor-pointer hover:underline">
-							Login
-						</span>
-					</Link>
-					<Link href="/signup">
-						<span className="w-20 px-3 py-2  bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  cursor-pointer">
-							Signup
-						</span>
-					</Link>
+					<button
+						onClick={() => signIn()}
+						className="py-2 px-3 bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  transition duration-300 cursor-pointer"
+					>
+						Sign In
+					</button>
 				</div>
 			</div>
 		</nav>

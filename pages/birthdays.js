@@ -1,4 +1,5 @@
 import React from "react";
+import { useSession, signIn } from "next-auth/react";
 import Layout from "../components/Layout";
 import RecordCard from "../components/RecordCard";
 import SearchBar from "../components/SearchBar";
@@ -37,6 +38,15 @@ const data = [
 ];
 
 const Birthdays = () => {
+	const { status } = useSession({
+		required: true,
+		onUnauthenticated: () => signIn(),
+	});
+
+	if (status === "loading") {
+		return <p>Loading...</p>;
+	}
+
 	return (
 		<Layout>
 			<div className="min-h-screen container my-20 px-2">

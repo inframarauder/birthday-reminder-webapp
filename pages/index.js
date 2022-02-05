@@ -1,9 +1,21 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 
 const Home = () => {
+	const { status } = useSession();
+	const router = useRouter();
+
+	if (status === "loading") {
+		return <p>Loading...</p>;
+	}
+
+	if (status === "authenticated") {
+		router.push("/birthdays");
+	}
+
 	return (
 		<Layout>
 			<div className="container h-screen">
@@ -17,16 +29,12 @@ const Home = () => {
 						<br /> Build using Next.js, AWS Lambda and Amazon Cognito.
 					</p>
 					<p className="my-4 text-lg">
-						<Link href="/login">
-							<button className="py-2 px-3 mx-4 w-20 md:w-40 cursor-pointer bg-green-800  hover:bg-green-600 text-green-100 hover:text-green-100 rounded transition duration-300">
-								Login
-							</button>
-						</Link>
-						<Link href="/signup">
-							<button className="py-2 px-3 mx-4 w-20 md:w-40  bg-blue-800 hover:bg-blue-600 text-blue-100 hover:text-blue-100 rounded  transition duration-300 cursor-pointer">
-								Signup
-							</button>
-						</Link>
+						<button
+							onClick={() => signIn()}
+							className="py-2 px-3 w-40 bg-green-600 hover:bg-green-500 text-green-100 hover:text-green-100 rounded  transition duration-300 cursor-pointer"
+						>
+							Sign In
+						</button>
 					</p>
 				</div>
 			</div>
