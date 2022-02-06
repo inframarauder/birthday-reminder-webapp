@@ -38,4 +38,5 @@ const birthdaySchema = new mongoose.Schema({
 	},
 });
 
-module.exports = models.Birthday || model("Birthday", birthdaySchema);
+module.exports =
+	mongoose.models.Birthday || mongoose.model("Birthday", birthdaySchema);

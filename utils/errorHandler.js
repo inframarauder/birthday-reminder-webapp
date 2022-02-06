@@ -1,4 +1,4 @@
-import { GeneralError } from "./errors";
+import { GeneralError } from "./error";
 import { Error } from "mongoose";
 
 module.exports = (err, req, res) => {

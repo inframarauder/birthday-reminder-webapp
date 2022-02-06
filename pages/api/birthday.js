@@ -1,7 +1,10 @@
-import Birthday from "../models/birthday.model";
+import Birthday from "../../models/birthday.model";
 import errorHandler from "../../utils/errorHandler";
+import { connectDb } from "../../utils/db";
 
-export default handler = async (req, res) => {
+connectDb();
+
+export default async (req, res) => {
 	if (req.method === "POST") {
 		try {
 			await Birthday.create(req.body);

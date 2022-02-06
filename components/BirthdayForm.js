@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-const BirthdayForm = () => {
+const BirthdayForm = ({ email }) => {
 	const months = [
 		"January",
 		"February",
@@ -33,9 +34,27 @@ const BirthdayForm = () => {
 	const [day, setDay] = useState(1);
 	const [friend, setFriend] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(`${month} ${day} ${friend}`);
+		if (friend.length === 0) {
+			alert("Please enter a friend's name");
+			return;
+		}
+		try {
+			const res = await axios.post("/api/birthday", {
+				email,
+				friend,
+				month,
+				day,
+			});
+
+			console.log(res.data);
+		} catch (error) {
+			console.error(error);
+			if (error.response.data) {
+				alert(error.response.data.error);
+			}
+		}
 	};
 
 	return (

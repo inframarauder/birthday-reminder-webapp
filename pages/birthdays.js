@@ -7,7 +7,7 @@ import Spinner from "../components/Spinner";
 import { Plus, Cross } from "../components/Icons";
 import BirthdayForm from "../components/BirthdayForm";
 
-const data = [
+const mockData = [
 	{
 		name: "John Doe",
 		month: "January",
@@ -41,7 +41,7 @@ const data = [
 ];
 
 const Birthdays = () => {
-	const { status } = useSession({
+	const { data, status } = useSession({
 		required: true,
 		onUnauthenticated: () => signIn(),
 	});
@@ -59,7 +59,7 @@ const Birthdays = () => {
 				<div className="flex justify-evenly">
 					<div></div>
 					<h1 className="text-center text-lg font-bold text-gray-400">
-						{data.length} birthdays found...
+						{mockData.length} birthdays found...
 					</h1>
 					<button
 						className="mx-4 bg-blue-700 text-blue-100 p-2 rounded hover:bg-blue-500"
@@ -71,7 +71,7 @@ const Birthdays = () => {
 
 				<div className="my-4 px-4">
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-						{data.map((item, index) => (
+						{mockData.map((item, index) => (
 							<RecordCard key={index} item={item} />
 						))}
 					</div>
@@ -98,7 +98,7 @@ const Birthdays = () => {
 						<hr />
 						{/* modal content */}
 						<div className="container p-4 flex justify-center">
-							<BirthdayForm />
+							<BirthdayForm email={data.user.email} />
 						</div>
 					</div>
 				</div>
