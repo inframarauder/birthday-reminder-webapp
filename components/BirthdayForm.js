@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const BirthdayForm = () => {
 	const months = [
@@ -17,17 +17,29 @@ const BirthdayForm = () => {
 	];
 
 	const getDays = (month) => {
+		let array;
 		if (["April", "June", "September", "November"].includes(month)) {
-			return [...Array(30)];
+			array = [...Array(30)];
 		} else if (month === "February") {
-			return [...Array(29)];
+			array = [...Array(29)];
 		} else {
-			return [...Array(31)];
+			array = [...Array(31)];
 		}
+
+		return array;
+	};
+
+	const [month, setMonth] = useState("January");
+	const [day, setDay] = useState(1);
+	const [friend, setFriend] = useState("");
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(`${month} ${day} ${friend}`);
 	};
 
 	return (
-		<form>
+		<form onSubmit={handleSubmit}>
 			<div className="w-full  px-3">
 				<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 					Friend's'Name
@@ -36,15 +48,23 @@ const BirthdayForm = () => {
 					className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 					type="text"
 					placeholder="John Doe"
+					value={friend}
+					onChange={(e) => setFriend(e.target.value)}
 				/>
 			</div>
 			<div className="w-full px-3 my-2">
 				<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 					Month
 				</label>
-				<select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+				<select
+					value={month}
+					onChange={(e) => setMonth(e.target.value)}
+					className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+				>
 					{months.map((item, index) => (
-						<option key={index}>{item}</option>
+						<option key={index} value={item}>
+							{item}
+						</option>
 					))}
 				</select>
 			</div>
@@ -53,9 +73,15 @@ const BirthdayForm = () => {
 				<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 					Day
 				</label>
-				<select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-					{getDays().map((item, index) => (
-						<option key={index}>{item + 1}</option>
+				<select
+					value={day}
+					onChange={(e) => setDay(e.target.value)}
+					className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+				>
+					{getDays(month).map((item, index) => (
+						<option key={index} value={index + 1}>
+							{index + 1}
+						</option>
 					))}
 				</select>
 			</div>
