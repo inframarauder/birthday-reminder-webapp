@@ -1,5 +1,5 @@
 import React from "react";
-import { Edit, Delete } from "./Icons";
+import { Delete } from "./Icons";
 
 const RecordCard = ({ item }) => {
 	return (
@@ -9,16 +9,13 @@ const RecordCard = ({ item }) => {
 					{item.day} {item.month}
 				</span>
 				<span>
-					<button className="my-2 cursor-pointer hover:text-blue-500">
-						<Edit />
-					</button>
 					<button className="my-2 cursor-pointer hover:text-red-500">
 						<Delete />
 					</button>
 				</span>
 			</p>
 			<hr />
-			<p className="text-base">{item.name}</p>
+			<p className="text-base">{item.friend}</p>
 		</div>
 	);
 };
