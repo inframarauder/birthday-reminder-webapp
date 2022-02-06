@@ -47,8 +47,8 @@ const BirthdayForm = ({ email }) => {
 				month,
 				day,
 			});
-
-			console.log(res.data);
+			alert(res.data.message);
+			window.location.reload();
 		} catch (error) {
 			console.error(error);
 			if (error.response.data) {
