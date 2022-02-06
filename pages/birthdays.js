@@ -3,6 +3,7 @@ import { useSession, signIn } from "next-auth/react";
 import Layout from "../components/Layout";
 import RecordCard from "../components/RecordCard";
 import SearchBar from "../components/SearchBar";
+import Spinner from "../components/Spinner";
 
 const data = [
 	{
@@ -46,7 +47,7 @@ const Birthdays = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 
 	if (status === "loading") {
-		return <p>Loading...</p>;
+		return <Spinner />;
 	}
 
 	return (

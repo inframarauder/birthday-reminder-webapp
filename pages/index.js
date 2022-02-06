@@ -3,13 +3,14 @@ import Image from "next/image";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
+import Spinner from "../components/Spinner";
 
 const Home = () => {
 	const { status } = useSession();
 	const router = useRouter();
 
 	if (status === "loading") {
-		return <p>Loading...</p>;
+		return <Spinner />;
 	}
 
 	if (status === "authenticated") {
