@@ -1,52 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
+import axios from "axios";
 import Layout from "../components/Layout";
 import RecordCard from "../components/RecordCard";
 import SearchBar from "../components/SearchBar";
 import Spinner from "../components/Spinner";
 import { Plus, Cross } from "../components/Icons";
 import BirthdayForm from "../components/BirthdayForm";
-import Birthday from "../models/birthday.model";
-import { connectDb } from "../utils/db";
 
-connectDb();
-
-const Birthdays = ({ birthdays }) => {
+const Birthdays = () => {
 	const { data, status } = useSession({
 		required: true,
 		onUnauthenticated: () => signIn(),
 	});
 
 	const [modalOpen, setModalOpen] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [birthdayRecords, setBirthdayRecords] = useState([]);
 
-	if (status === "loading") {
-		return <Spinner />;
-	}
+	useEffect(() => {
+		async function getBirthdayRecords() {
+			setLoading(true);
+			try {
+				const res = await axios.get("/api/birthdays");
+				setBirthdayRecords(res.data);
+			} catch (error) {
+				console.error(error);
+				alert("Error in fetching birthday records");
+			}
+			setLoading(false);
+		}
+		getBirthdayRecords();
+	}, []);
 
-	return (
+	const searchBirthdaysByName = async (name) => {
+		try {
+			const res = await axios.get("/api/birthdays", {
+				params: { friend: { $regex: name, $options: "i" } },
+			});
+			setBirthdayRecords(res.data);
+		} catch (error) {
+			console.error(error);
+			alert("Error in fetching birthday records");
+		}
+	};
+
+	return status === "loading" ? (
+		<Spinner />
+	) : (
 		<Layout>
 			<div className="min-h-screen container my-20 px-2">
-				<SearchBar />
-				<div className="flex justify-evenly">
-					<div></div>
-					<h1 className="text-center text-lg font-bold text-gray-400">
-						{birthdays.length} birthday(s) found...
-					</h1>
-					<button
-						className="mx-4 bg-blue-700 text-blue-100 p-2 rounded hover:bg-blue-500"
-						onClick={() => setModalOpen(true)}
-					>
-						<Plus />
-					</button>{" "}
-				</div>
+				{loading ? (
+					<Spinner />
+				) : (
+					<>
+						<div className="flex justify-evenly my-4">
+							<div></div>
+							<h1 className="text-center text-lg font-bold text-gray-400">
+								{birthdayRecords.length} birthday(s) found...
+							</h1>
+							<button
+								className="mx-4 bg-blue-700 text-blue-100 p-2 rounded hover:bg-blue-500"
+								onClick={() => setModalOpen(true)}
+							>
+								<Plus />
+							</button>{" "}
+						</div>
 
-				<div className="my-4 px-4">
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-						{birthdays.map((item) => (
-							<RecordCard key={item._id} item={item} />
-						))}
-					</div>
-				</div>
+						<SearchBar searchBirthdaysByName={searchBirthdaysByName} />
+
+						<div className="my-4 px-4">
+							<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+								{birthdayRecords.map((item) => (
+									<RecordCard key={item._id} item={item} />
+								))}
+							</div>
+						</div>
+					</>
+				)}
 			</div>
 
 			{/* modal */}
@@ -77,15 +108,5 @@ const Birthdays = ({ birthdays }) => {
 		</Layout>
 	);
 };
-
-export async function getServerSideProps(context) {
-	const birthdays = await Birthday.find({}).lean();
-
-	return {
-		props: {
-			birthdays: JSON.parse(JSON.stringify(birthdays)),
-		},
-	};
-}
 
 export default Birthdays;

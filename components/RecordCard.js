@@ -8,7 +8,7 @@ const RecordCard = ({ item }) => {
 			window.confirm("Are you sure you want to delete this birthday record?")
 		) {
 			try {
-				const res = await axios.delete(`/api/birthday`, {
+				const res = await axios.delete(`/api/birthdays`, {
 					params: { id },
 				});
 				alert(res.data.message);

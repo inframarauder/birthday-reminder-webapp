@@ -41,7 +41,7 @@ const BirthdayForm = ({ email }) => {
 			return;
 		}
 		try {
-			const res = await axios.post("/api/birthday", {
+			const res = await axios.post("/api/birthdays", {
 				email,
 				friend,
 				month,
