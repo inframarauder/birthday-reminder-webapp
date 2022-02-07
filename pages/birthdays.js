@@ -22,7 +22,9 @@ const Birthdays = () => {
 		async function getBirthdayRecords() {
 			setLoading(true);
 			try {
-				const res = await axios.get("/api/birthdays");
+				const res = await axios.get("/api/birthdays", {
+					params: { email: data.user.email },
+				});
 				setBirthdayRecords(res.data);
 			} catch (error) {
 				console.error(error);
@@ -36,7 +38,10 @@ const Birthdays = () => {
 	const searchBirthdaysByName = async (name) => {
 		try {
 			const res = await axios.get("/api/birthdays", {
-				params: { friend: { $regex: name, $options: "i" } },
+				params: {
+					email: data.user.email,
+					friend: { $regex: name, $options: "i" },
+				},
 			});
 			setBirthdayRecords(res.data);
 		} catch (error) {
