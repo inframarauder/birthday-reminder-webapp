@@ -33,7 +33,7 @@ const Birthdays = () => {
 			setLoading(false);
 		}
 		getBirthdayRecords();
-	}, []);
+	}, [data?.user?.email]);
 
 	const searchBirthdaysByName = async (name) => {
 		try {
