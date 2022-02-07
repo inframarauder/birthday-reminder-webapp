@@ -4,12 +4,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## About
 
-A web app that lets you save records of your friends' birthdays and get email reminders for them.
+A web app / PWA that lets you save records of your friends' birthdays and get email reminders for them.
 
 ## Tech stack :
 - Next.js
-- MongoDB
 - NextAuth
+- NextPWA
+- MongoDB
 - Tailwind CSS
 - AWS Lambda
 
