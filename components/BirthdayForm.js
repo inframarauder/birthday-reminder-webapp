@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Spinner from "./Spinner";
 
-const BirthdayForm = ({ email }) => {
+const BirthdayForm = ({ email, setModalOpen }) => {
 	const months = [
 		"January",
 		"February",
@@ -58,6 +58,7 @@ const BirthdayForm = ({ email }) => {
 			}
 		}
 		setLoading(false);
+		setModalOpen(false);
 	};
 
 	return loading ? (

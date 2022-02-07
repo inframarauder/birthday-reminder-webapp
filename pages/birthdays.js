@@ -107,7 +107,10 @@ const Birthdays = () => {
 						<hr />
 						{/* modal content */}
 						<div className="container p-4 flex justify-center">
-							<BirthdayForm email={data?.user?.email} />
+							<BirthdayForm
+								email={data?.user?.email}
+								setModalOpen={setModalOpen}
+							/>
 						</div>
 					</div>
 				</div>
