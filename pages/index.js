@@ -38,7 +38,7 @@ const Home = () => {
 							</li>
 							<li className="flex justify-start items-center p-4 my-2 bg-gray-100 rounded">
 								<RightPointer />
-								<span className="ml-2">Add your friends' birthdays</span>
+								<span className="ml-2">Add your friends`&apos;` birthdays</span>
 							</li>
 							<li className="flex justify-start items-center p-4 my-2 bg-gray-100 rounded">
 								<RightPointer />

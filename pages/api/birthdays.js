@@ -4,7 +4,7 @@ import { connectDb } from "../../utils/db";
 
 connectDb();
 
-export default async (req, res) => {
+export default async function (req, res) {
 	if (req.method === "GET") {
 		if (req.query.friend) {
 			req.query.friend = JSON.parse(req.query.friend);
@@ -28,4 +28,4 @@ export default async (req, res) => {
 	} else {
 		return res.status(405).json({ error: "Method not allowed" });
 	}
-};
+}

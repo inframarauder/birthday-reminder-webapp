@@ -10,7 +10,7 @@ const Footer = () => {
 						<a
 							href="https://subhasis.vercel.app"
 							target="_blank"
-							rel="noopener norefferer"
+							rel="noopener noreferer"
 							className="hover:text-blue-700"
 						>
 							Subhasis Das
