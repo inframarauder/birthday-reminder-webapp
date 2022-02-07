@@ -13,6 +13,7 @@ const Layout = ({ children }) => {
 					content="A simple next.js web app to remind people about their friends birthdays"
 				/>
 				<link rel="icon" href="/favicon.ico" />
+				<link rel="manifest" href="/manifest.json" />
 			</Head>
 			<Header />
 			{children}
