@@ -41,13 +41,12 @@ const BirthdayForm = ({ email }) => {
 			return;
 		}
 		try {
-			const res = await axios.post("/api/birthdays", {
+			await axios.post("/api/birthdays", {
 				email,
 				friend,
 				month,
 				day,
 			});
-			alert(res.data.message);
 			window.location.reload();
 		} catch (error) {
 			console.error(error);

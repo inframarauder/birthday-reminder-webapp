@@ -8,10 +8,9 @@ const RecordCard = ({ item }) => {
 			window.confirm("Are you sure you want to delete this birthday record?")
 		) {
 			try {
-				const res = await axios.delete(`/api/birthdays`, {
+				await axios.delete(`/api/birthdays`, {
 					params: { id },
 				});
-				alert(res.data.message);
 				window.location.reload();
 			} catch (error) {
 				console.error(error);
@@ -21,11 +20,31 @@ const RecordCard = ({ item }) => {
 			}
 		}
 	};
+
+	const getMonth = (month) => {
+		const months = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		];
+
+		return months[month - 1];
+	};
+
 	return (
 		<div className="bg-gray-200 rounded-lg shadow-lg p-4 w-full px-5">
 			<p className="flex justify-between text-gray-700 text-lg">
 				<span>
-					{item.day} {item.month}
+					{item.day} {getMonth(item.month)}
 				</span>
 				<span>
 					<button

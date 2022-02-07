@@ -23,7 +23,7 @@ const Birthdays = () => {
 			setLoading(true);
 			try {
 				const res = await axios.get("/api/birthdays", {
-					params: { email: data.user.email },
+					params: { email: data?.user?.email },
 				});
 				setBirthdayRecords(res.data);
 			} catch (error) {
@@ -39,7 +39,7 @@ const Birthdays = () => {
 		try {
 			const res = await axios.get("/api/birthdays", {
 				params: {
-					email: data.user.email,
+					email: data?.user?.email,
 					friend: { $regex: name, $options: "i" },
 				},
 			});
@@ -50,9 +50,11 @@ const Birthdays = () => {
 		}
 	};
 
-	return status === "loading" ? (
-		<Spinner />
-	) : (
+	if (!data || status === "loading") {
+		return <Spinner />;
+	}
+
+	return (
 		<Layout>
 			<div className="min-h-screen container my-20 px-2">
 				{loading ? (
@@ -105,7 +107,7 @@ const Birthdays = () => {
 						<hr />
 						{/* modal content */}
 						<div className="container p-4 flex justify-center">
-							<BirthdayForm email={data.user.email} />
+							<BirthdayForm email={data?.user?.email} />
 						</div>
 					</div>
 				</div>

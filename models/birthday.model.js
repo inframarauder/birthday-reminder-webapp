@@ -16,25 +16,10 @@ const birthdaySchema = new mongoose.Schema({
 		max: 31,
 	},
 	month: {
-		type: String,
+		type: Number,
 		required: [true, "Month is required"],
-		enum: {
-			values: [
-				"January",
-				"February",
-				"March",
-				"April",
-				"May",
-				"June",
-				"July",
-				"August",
-				"September",
-				"October",
-				"November",
-				"December",
-			],
-			message: "Month is invalid",
-		},
+		min: 1,
+		max: 12,
 	},
 });
 
