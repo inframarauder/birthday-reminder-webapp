@@ -12,6 +12,13 @@ export default async (req, res) => {
 		} catch (error) {
 			errorHandler(error, req, res);
 		}
+	} else if (req.method === "DELETE") {
+		try {
+			await Birthday.findByIdAndDelete(req.body.id);
+			res.status(200).json({ message: "Birthday deleted successfully" });
+		} catch (error) {
+			errorHandler(error, req, res);
+		}
 	} else {
 		return res.status(405).json({ error: "Method not allowed" });
 	}
