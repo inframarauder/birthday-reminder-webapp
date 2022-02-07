@@ -78,7 +78,7 @@ const Birthdays = ({ birthdays }) => {
 	);
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
 	const birthdays = await Birthday.find({}).lean();
 
 	return {

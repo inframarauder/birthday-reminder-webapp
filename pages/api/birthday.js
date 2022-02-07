@@ -14,7 +14,7 @@ export default async (req, res) => {
 		}
 	} else if (req.method === "DELETE") {
 		try {
-			await Birthday.findByIdAndDelete(req.body.id);
+			await Birthday.findByIdAndDelete(req.query.id);
 			res.status(200).json({ message: "Birthday deleted successfully" });
 		} catch (error) {
 			errorHandler(error, req, res);
