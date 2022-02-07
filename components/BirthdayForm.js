@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Spinner from "./Spinner";
 
 const BirthdayForm = ({ email }) => {
 	const months = [
@@ -33,6 +34,7 @@ const BirthdayForm = ({ email }) => {
 	const [month, setMonth] = useState("January");
 	const [day, setDay] = useState(1);
 	const [friend, setFriend] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -40,6 +42,7 @@ const BirthdayForm = ({ email }) => {
 			alert("Please enter a friend's name");
 			return;
 		}
+		setLoading(true);
 		try {
 			await axios.post("/api/birthdays", {
 				email,
@@ -54,9 +57,12 @@ const BirthdayForm = ({ email }) => {
 				alert(error.response.data.error);
 			}
 		}
+		setLoading(false);
 	};
 
-	return (
+	return loading ? (
+		<Spinner />
+	) : (
 		<form onSubmit={handleSubmit}>
 			<div className="w-full  px-3">
 				<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
