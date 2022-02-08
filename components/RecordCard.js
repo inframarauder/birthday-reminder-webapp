@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Delete } from "./Icons";
 
-const RecordCard = ({ item }) => {
+const RecordCard = ({ item, getBirthdayRecords }) => {
 	const deleteRecord = async (id) => {
 		if (
 			window.confirm("Are you sure you want to delete this birthday record?")
@@ -11,7 +11,7 @@ const RecordCard = ({ item }) => {
 				await axios.delete(`/api/birthdays`, {
 					params: { id },
 				});
-				window.location.reload();
+				getBirthdayRecords();
 			} catch (error) {
 				console.error(error);
 				if (error.response.data) {

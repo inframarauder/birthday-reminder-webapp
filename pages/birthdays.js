@@ -18,37 +18,27 @@ const Birthdays = () => {
 	const [loading, setLoading] = useState(false);
 	const [birthdayRecords, setBirthdayRecords] = useState([]);
 
-	useEffect(() => {
-		async function getBirthdayRecords() {
-			setLoading(true);
-			try {
-				const res = await axios.get("/api/birthdays", {
-					params: { email: data?.user?.email },
-				});
-				setBirthdayRecords(res.data);
-			} catch (error) {
-				console.error(error);
-				alert("Error in fetching birthday records");
-			}
-			setLoading(false);
-		}
-		getBirthdayRecords();
-	}, [data?.user?.email]);
-
-	const searchBirthdaysByName = async (name) => {
+	const getBirthdayRecords = async (query) => {
+		setLoading(true);
 		try {
 			const res = await axios.get("/api/birthdays", {
-				params: {
-					email: data?.user?.email,
-					friend: { $regex: name, $options: "i" },
-				},
+				params: { email: data?.user?.email, ...query },
 			});
 			setBirthdayRecords(res.data);
 		} catch (error) {
 			console.error(error);
 			alert("Error in fetching birthday records");
 		}
+		setLoading(false);
 	};
+
+	const searchBirthdaysByName = (name) => {
+		getBirthdayRecords({ friend: { $regex: name, $options: "i" } });
+	};
+
+	useEffect(() => {
+		getBirthdayRecords();
+	}, [data?.user?.email]);
 
 	if (!data || status === "loading") {
 		return <Spinner />;
@@ -56,30 +46,34 @@ const Birthdays = () => {
 
 	return (
 		<Layout>
-			<div className="min-h-screen container my-20 px-2">
+			<div className="min-h-screen container my-20">
+				<div className="flex justify-between items-center">
+					<div></div>
+					<SearchBar searchBirthdaysByName={searchBirthdaysByName} />
+					<button
+						className="flex justify-center items-center px-2 py-2 mx-2 bg-blue-700 text-blue-100 rounded hover:bg-blue-500"
+						onClick={() => setModalOpen(true)}
+					>
+						<Plus />
+					</button>{" "}
+				</div>
+
 				{loading ? (
 					<Spinner />
 				) : (
 					<>
-						<div className="flex justify-evenly my-4">
-							<div></div>
-							<h1 className="text-center text-lg font-bold text-gray-400">
-								{birthdayRecords.length} birthday(s) found...
-							</h1>
-							<button
-								className="mx-4 bg-blue-700 text-blue-100 p-2 rounded hover:bg-blue-500"
-								onClick={() => setModalOpen(true)}
-							>
-								<Plus />
-							</button>{" "}
-						</div>
+						<h1 className="text-center text-lg font-bold text-gray-400 my-4">
+							{birthdayRecords.length} birthday(s) found...
+						</h1>
 
-						<SearchBar searchBirthdaysByName={searchBirthdaysByName} />
-
-						<div className="my-4 px-4">
+						<div className="my-4 p-4">
 							<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 								{birthdayRecords.map((item) => (
-									<RecordCard key={item._id} item={item} />
+									<RecordCard
+										key={item._id}
+										item={item}
+										getBirthdayRecords={getBirthdayRecords}
+									/>
 								))}
 							</div>
 						</div>
@@ -110,6 +104,7 @@ const Birthdays = () => {
 							<BirthdayForm
 								email={data?.user?.email}
 								setModalOpen={setModalOpen}
+								getBirthdayRecords={getBirthdayRecords}
 							/>
 						</div>
 					</div>

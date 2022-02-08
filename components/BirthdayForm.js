@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Spinner from "./Spinner";
 
-const BirthdayForm = ({ email, setModalOpen }) => {
+const BirthdayForm = ({ email, setModalOpen, getBirthdayRecords }) => {
 	const months = [
 		"January",
 		"February",
@@ -34,7 +33,6 @@ const BirthdayForm = ({ email, setModalOpen }) => {
 	const [month, setMonth] = useState("January");
 	const [day, setDay] = useState(1);
 	const [friend, setFriend] = useState("");
-	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -42,28 +40,27 @@ const BirthdayForm = ({ email, setModalOpen }) => {
 			alert("Please enter a friend's name");
 			return;
 		}
-		setLoading(true);
 		try {
-			await axios.post("/api/birthdays", {
-				email,
-				friend,
-				month,
-				day,
-			});
-			window.location.reload();
+			//create birthday record
+			await axios.post("/api/birthdays", { email, friend, month, day });
+
+			//update state
+			getBirthdayRecords();
 		} catch (error) {
 			console.error(error);
 			if (error.response.data) {
 				alert(error.response.data.error);
 			}
 		}
-		setLoading(false);
+
+		//clear form and close the modal
+		setMonth("January");
+		setDay(1);
+		setFriend("");
 		setModalOpen(false);
 	};
 
-	return loading ? (
-		<Spinner />
-	) : (
+	return (
 		<form onSubmit={handleSubmit}>
 			<div className="w-full  px-3">
 				<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
