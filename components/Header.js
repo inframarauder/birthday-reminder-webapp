@@ -66,7 +66,7 @@ const Header = () => {
 					</div>
 
 					{/* mobile view menu button  */}
-					<div className="md:hidden flex items-center">
+					<div className="md:hidden flex items-center mr-2">
 						<button className="button" onClick={toggleMenu}>
 							{mobileNavOpen ? <Cross /> : <Hamburger />}
 						</button>
